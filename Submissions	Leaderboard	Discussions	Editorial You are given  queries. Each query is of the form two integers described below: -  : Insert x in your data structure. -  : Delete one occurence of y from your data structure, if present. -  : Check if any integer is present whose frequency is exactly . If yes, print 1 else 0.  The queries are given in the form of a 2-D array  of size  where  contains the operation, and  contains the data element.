@@ -1,0 +1,42 @@
+import math
+import os
+import random
+import re
+import sys
+from collections import defaultdict
+# Complete the freqQuery function below.
+def freqQuery(queries):
+    new=dict()
+    ans=[]
+    for i in queries:
+        op=i[0]
+        val=i[1]
+        if op==1:
+            new[val]=new.get(val,0)+ 1
+        elif op==2:
+            if new.get(val,0)>0:
+                new[val]-=1
+        elif op==3:
+            for i in new.values():
+                if i==val:
+                    ans.append(1)
+                    break
+            else:
+                ans.append(0)
+    return ans
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input().strip())
+
+    queries = []
+
+    for _ in range(q):
+        queries.append(list(map(int, input().rstrip().split())))
+
+    ans = freqQuery(queries)
+
+    fptr.write('\n'.join(map(str, ans)))
+    fptr.write('\n')
+
+    fptr.close()
